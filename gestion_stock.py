@@ -254,6 +254,28 @@ def clique_colonne_categorie(event):
             # Clic sur la colonne "effacer"
             effacer_categorie(item_id)
 
+def validation_ajout_categorie(treeview_category, name_entry, modif_window):
+    reponse = messagebox.askyesno("Ajouter", "Voulez-vous vraiment ajouter ce produit ?")
+    if reponse:
+        values = [
+                name_entry.get(),
+                "Modifier",
+                "Effacer"
+            ]
+        verif = False
+
+        try:
+            categorie.ajout(f"{values[0]}")
+            messagebox.showinfo("Etat ajout", "Ajout effectuée avec succès !")
+            verif = True
+
+        except:
+            messagebox.showinfo("Etat ajout", "Ajout echouée !") 
+
+        if verif:
+            modif_window.destroy()
+            treeview_category.insert('', 'end', values=values)
+            
 def ajout_categorie(categorie):
     global treeview_categorie
     modif_window = tk.Toplevel(root)
@@ -277,8 +299,7 @@ def ajout_categorie(categorie):
     nom_label = tk.Label(modif_window, text="Entrez le nom de la catégorie:")
     nom_entry = tk.Entry(modif_window, width=100)
 
-    ajout_button = tk.Button(modif_window, text="Valider", command=lambda: ajout())
-
+    ajout_button = tk.Button(modif_window, text="Valider", command=lambda: validation_ajout_categorie(treeview_categorie, nom_entry, modif_window))
 
     nom_label.pack()
     nom_entry.pack()
