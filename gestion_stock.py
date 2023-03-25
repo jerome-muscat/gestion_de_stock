@@ -1,7 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-from Categorie import *
-from Produit import *
+from classes.Categorie import *
+from classes.Produit import *
 import tkinter.messagebox as messagebox
 
 root = tk.Tk()
